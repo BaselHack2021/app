@@ -1,10 +1,11 @@
+import React, { useCallback } from 'react';
 import { IonButton, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonRouterOutlet, IonRow, IonToolbar } from '@ionic/react';
-
 import './Verification.css';
 import { ellipseOutline, checkmarkCircleOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { Redirect, Route } from 'react-router';
 import RegisterUser from '../components/RegisterUser';
+import { User } from '../../interfaces/models';
 
 const VerificationTab: React.FC = () => {
     const [steps, setSteps] = useState({
@@ -13,9 +14,19 @@ const VerificationTab: React.FC = () => {
         linkWristband: false,
     });
 
+    const [user, setUser] = useState<User | undefined>(undefined);
+
     const getIcon = (isDone: boolean) => {
         return isDone ? checkmarkCircleOutline : ellipseOutline;
     };
+
+    const updateUser = useCallback(
+        (user: User) => {
+            setUser(user);
+            setSteps({ ...steps, scanRegistration: true });
+        },
+        [setUser, setSteps, steps]
+    );
 
     return (
         <IonPage>
@@ -39,7 +50,9 @@ const VerificationTab: React.FC = () => {
             </IonHeader>
             <IonContent>
                 <IonRouterOutlet>
-                    <Route exact path="/verification/register" component={RegisterUser}></Route>
+                    <Route exact path="/verification/register">
+                        <RegisterUser setUser={updateUser}></RegisterUser>
+                    </Route>
                     <Route exact path="/verification/age">
                         <span>Age</span>
                     </Route>
@@ -53,7 +66,9 @@ const VerificationTab: React.FC = () => {
             </IonContent>
             <IonFooter>
                 <IonToolbar>
-                    <IonButton expand="block">Continue</IonButton>
+                    <IonButton expand="block" disabled>
+                        Continue
+                    </IonButton>
                 </IonToolbar>
             </IonFooter>
         </IonPage>
