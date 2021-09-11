@@ -4,6 +4,7 @@ import './Verification.css';
 import { ellipseOutline, checkmarkCircleOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { Redirect, Route } from 'react-router';
+import RegisterUser from '../components/RegisterUser';
 
 const VerificationTab: React.FC = () => {
     const [steps, setSteps] = useState({
@@ -38,9 +39,7 @@ const VerificationTab: React.FC = () => {
             </IonHeader>
             <IonContent>
                 <IonRouterOutlet>
-                    <Route exact path="/verification/register">
-                        <span>Register</span>
-                    </Route>
+                    <Route exact path="/verification/register" component={RegisterUser}></Route>
                     <Route exact path="/verification/age">
                         <span>Age</span>
                     </Route>
