@@ -1,25 +1,64 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Verification.css';
+import { IonButton, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonRouterOutlet, IonRow, IonToolbar } from '@ionic/react';
 
-const Tab2: React.FC = () => {
+import './Verification.css';
+import { ellipseOutline, checkmarkCircleOutline } from 'ionicons/icons';
+import { useState } from 'react';
+import { Redirect, Route } from 'react-router';
+
+const VerificationTab: React.FC = () => {
+    const [steps, setSteps] = useState({
+        scanRegistration: false,
+        confirmAge: false,
+        linkWristband: false,
+    });
+
+    const getIcon = (isDone: boolean) => {
+        return isDone ? checkmarkCircleOutline : ellipseOutline;
+    };
+
     return (
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Verifikation</IonTitle>
+                    <IonRow>
+                        <IonCol class="verification--stepper-col">
+                            <IonIcon icon={getIcon(steps.scanRegistration)} class="text-primary" size="large"></IonIcon>
+                            <span className="verification--stepper-description">Register</span>
+                        </IonCol>
+                        <IonCol class="verification--stepper-col">
+                            <IonIcon icon={getIcon(steps.confirmAge)} class="text-primary" size="large"></IonIcon>
+                            <span className="verification--stepper-description">Age check</span>
+                        </IonCol>
+                        <IonCol class="verification--stepper-col">
+                            <IonIcon icon={getIcon(steps.linkWristband)} class="text-primary" size="large"></IonIcon>
+                            <span className="verification--stepper-description">Wristband</span>
+                        </IonCol>
+                    </IonRow>
                 </IonToolbar>
             </IonHeader>
-            <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Verifikation</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <ExploreContainer name="Tab 2 page" />
+            <IonContent>
+                <IonRouterOutlet>
+                    <Route exact path="/verification/register">
+                        <span>Register</span>
+                    </Route>
+                    <Route exact path="/verification/age">
+                        <span>Age</span>
+                    </Route>
+                    <Route exact path="/verification/wristband">
+                        <span>Wristband</span>
+                    </Route>
+                    <Route exact path="/verification">
+                        <Redirect to="/verification/register" />
+                    </Route>
+                </IonRouterOutlet>
             </IonContent>
+            <IonFooter>
+                <IonToolbar>
+                    <IonButton expand="block">Continue</IonButton>
+                </IonToolbar>
+            </IonFooter>
         </IonPage>
     );
 };
 
-export default Tab2;
+export default VerificationTab;

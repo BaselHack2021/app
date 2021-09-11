@@ -3,7 +3,7 @@ import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, Io
 import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, triangle } from 'ionicons/icons';
 import Tab1 from './pages/Payment';
-import Tab2 from './pages/Verification';
+import VerificationTab from './pages/Verification';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,7 +33,7 @@ const App: React.FC = () => (
                         <Tab1 />
                     </Route>
                     <Route exact path="/verification">
-                        <Tab2 />
+                        <VerificationTab />
                     </Route>
                     <Route exact path="/">
                         <Redirect to="/payment" />

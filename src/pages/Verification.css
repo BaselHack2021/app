@@ -1,0 +1,11 @@
+.verification--stepper-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.verification--stepper-description {
+    @apply pt-1 text-xs;
+}
