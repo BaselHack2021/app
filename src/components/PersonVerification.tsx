@@ -19,7 +19,7 @@ const PersonVerification: React.FC<Props> = ({ user, goNext }) => {
 
     const verifyUser = () => {
         const json = JSON.stringify({ ...user, status: true });
-        fetch(`${BASE_URL}/users/613cf70c975c4abfb0ea5db9`, {
+        fetch(`${BASE_URL}/users/${user._id}`, {
             method: 'PUT',
             body: json,
             headers: {
