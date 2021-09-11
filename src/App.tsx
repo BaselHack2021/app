@@ -2,8 +2,8 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, triangle } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
+import Tab1 from './pages/Payment';
+import Tab2 from './pages/Verification';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -29,24 +29,24 @@ const App: React.FC = () => (
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
-                    <Route exact path="/tab1">
+                    <Route exact path="/payment">
                         <Tab1 />
                     </Route>
-                    <Route exact path="/tab2">
+                    <Route exact path="/verification">
                         <Tab2 />
                     </Route>
                     <Route exact path="/">
-                        <Redirect to="/tab1" />
+                        <Redirect to="/payment" />
                     </Route>
                 </IonRouterOutlet>
                 <IonTabBar slot="bottom">
-                    <IonTabButton tab="tab1" href="/tab1">
+                    <IonTabButton tab="payment" href="/payment">
                         <IonIcon icon={triangle} />
-                        <IonLabel>Tab 1</IonLabel>
+                        <IonLabel>Zahlung</IonLabel>
                     </IonTabButton>
-                    <IonTabButton tab="tab2" href="/tab2">
+                    <IonTabButton tab="verification" href="/verification">
                         <IonIcon icon={ellipse} />
-                        <IonLabel>Tab 2</IonLabel>
+                        <IonLabel>Verifikation</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
             </IonTabs>
