@@ -8,11 +8,11 @@ export const RegisterUser: React.FC<{ setUser: (user: User) => void }> = ({ setU
     const [present] = useIonToast();
 
     const openBarcodeScanner = async () => {
-        const data = await BarcodeScanner.scan();
-        fetch(`${BASE_URL}/users/${data.text}`)
+        // const data = await BarcodeScanner.scan();
+        fetch(`${BASE_URL}/users/613cf70c975c4abfb0ea5db9`)
             .then((res) => res.json())
             .then((res: Response<User>) => {
-                setUser(res.data);
+                setUser({ ...res.data, birthdate: new Date(res.data.birthdate) });
             })
             .catch((_) => present('Could not get user', 3000));
     };
