@@ -7,7 +7,7 @@ import { User, Response } from '@baselhack2021/interfaces/models';
 import './Payment.css';
 
 const Tab1: React.FC = () => {
-    const [userUuid, setUserUuid] = useState<string | undefined>(undefined);
+    const [userUuid, setUserUuid] = useState<string | undefined>('sfsdfsdf');
     const [amount, setAmount] = useState<number | undefined>(undefined);
     const [userAge, setUserAge] = useState<number | undefined>(undefined);
     const [user, setUser] = useState<User | undefined>(undefined);
@@ -24,8 +24,24 @@ const Tab1: React.FC = () => {
         }
     };
 
+    const getFestivalUserByQr = (qrUuid: string) => {
+        fetch(`${BASE_URL}/qr-codes/${qrUuid}`).then();
+    };
+
     const chargeUser = () => {
-        // fetch
+        // if (amount) {
+        //     const body = {
+        //         amount: -amount,
+        //         festivalUserId: user,
+        //     };
+        //     fetch(`${BASE_URL}/transactions`, {
+        //         method: 'POST',
+        //         body: json,
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     });
+        // }
     };
 
     const loadUserAge = (uuid: string) => {

@@ -8,6 +8,7 @@ interface Props {
 
 const AmountInput: React.FC<Props> = ({ amountChanged }) => {
     const [amount, setAmount] = useState('');
+    const [displayTeapot, setDisplayTeapot] = useState(false);
 
     const typeNumber = (number: string) => {
         setAmount(`${amount}${number}`);
@@ -19,11 +20,21 @@ const AmountInput: React.FC<Props> = ({ amountChanged }) => {
     };
 
     useEffect(() => {
-        amountChanged(parseFloat(amount));
+        const floatAmount = parseFloat(amount);
+        amountChanged(floatAmount);
+        if (floatAmount === 418) {
+            setDisplayTeapot(true);
+            setTimeout(() => setDisplayTeapot(false), 5000);
+        }
     }, [amount, amountChanged]);
 
     return (
         <div className="app-container">
+            {displayTeapot && (
+                <div className="w-screen h-screen bg-black absolute top-0 left-0 z-10 flex justify-center items-center">
+                    <span className="text-9xl">🫖</span>
+                </div>
+            )}
             <h3 className="text-xl font-semibold pb-5">Enter amount to charge</h3>
             <input type="text" disabled value={amount} placeholder="0.00"></input>
             <div className="grid grid-cols-3 gap-4">
