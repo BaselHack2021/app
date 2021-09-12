@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonRouterOutlet, IonRow, IonToolbar } from '@ionic/react';
+import React from 'react';
+import { IonCol, IonHeader, IonIcon, IonPage, IonRow, IonToolbar } from '@ionic/react';
 import { ellipse, checkmarkCircle, ellipseOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { User } from '@baselhack2021/interfaces/models';

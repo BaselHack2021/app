@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonFooter, IonToolbar } from '@ionic/react';
+import { IonContent, IonFooter, IonToolbar } from '@ionic/react';
 import { useState } from 'react';
 import { User } from '@baselhack2021/interfaces/models';
 import { BASE_URL } from '../constants';

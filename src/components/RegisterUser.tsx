@@ -1,5 +1,5 @@
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { IonButton, IonContent, IonFooter, IonToolbar, useIonToast } from '@ionic/react';
+import { IonButton, IonContent, useIonToast } from '@ionic/react';
 import { BASE_URL } from '../constants';
 import { User, Response } from '@baselhack2021/interfaces/models';
 import './RegisterUser.css';
@@ -13,8 +13,8 @@ export const RegisterUser: React.FC<Props> = ({ setUser, finishStep }) => {
     const [present] = useIonToast();
 
     const openBarcodeScanner = async () => {
-        // const data = await BarcodeScanner.scan();
-        fetch(`${BASE_URL}/users/613cf70c975c4abfb0ea5db9`)
+        const data = await BarcodeScanner.scan();
+        fetch(`${BASE_URL}/users/${data.text}`)
             .then((res) => res.json())
             .then((res: Response<User>) => {
                 setUser({ ...res.data, birthdate: new Date(res.data.birthdate) });
@@ -26,9 +26,11 @@ export const RegisterUser: React.FC<Props> = ({ setUser, finishStep }) => {
     return (
         <>
             <IonContent>
-                <IonButton onClick={openBarcodeScanner} class="mx-auto container px-10">
-                    Scan registered user
-                </IonButton>
+                <div className="mx-auto container px-10">
+                    <button onClick={openBarcodeScanner} className="button-primary">
+                        Scan registered user
+                    </button>
+                </div>
             </IonContent>
         </>
     );
