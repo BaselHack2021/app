@@ -13,6 +13,8 @@ const VerificationTab: React.FC = () => {
 
     const [user, setUser] = useState<User | undefined>(undefined);
 
+    const [festivalUserId, setFestivalUserId] = useState<string | undefined>();
+
     const getIcon = (pageNumber: number) => {
         if (pageNumber < currentStep) {
             return checkmarkCircle;
@@ -58,8 +60,17 @@ const VerificationTab: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             {currentStep === 0 && <RegisterUser setUser={setUser} finishStep={goNext}></RegisterUser>}
-            {currentStep === 1 && user && <PersonVerification user={user} finishStep={goNext} back={goBack}></PersonVerification>}
-            {currentStep === 2 && user && <LinkWristband user={user} finishStep={goNext} back={goBack}></LinkWristband>}
+            {currentStep === 1 && user && (
+                <PersonVerification
+                    user={user}
+                    setFesetivalUserId={setFestivalUserId}
+                    finishStep={goNext}
+                    back={goBack}
+                ></PersonVerification>
+            )}
+            {currentStep === 2 && festivalUserId && (
+                <LinkWristband festivalUserId={festivalUserId} finishStep={goNext} back={goBack}></LinkWristband>
+            )}
         </IonPage>
     );
 };

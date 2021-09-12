@@ -1,5 +1,4 @@
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { UUID_LENGTH } from './constants';
 
 export const calculateAge = (birthdate: Date): number => {
     var ageDifMs = Date.now() - birthdate.getTime();
@@ -15,7 +14,7 @@ export const padAmount = (amount: number | undefined) => {
 
 export const scanQrCode = async (): Promise<string | null> => {
     const data = await BarcodeScanner.scan();
-    if (data.text.length === UUID_LENGTH) {
+    if (data.text) {
         return data.text;
     }
     return null;

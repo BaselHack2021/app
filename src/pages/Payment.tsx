@@ -7,7 +7,7 @@ import { User, Response } from '@baselhack2021/interfaces/models';
 import './Payment.css';
 
 const Tab1: React.FC = () => {
-    const [userUuid, setUserUuid] = useState<string | undefined>('sfsdfsdf');
+    const [userUuid, setUserUuid] = useState<string | undefined>(undefined);
     const [amount, setAmount] = useState<number | undefined>(undefined);
     const [userAge, setUserAge] = useState<number | undefined>(undefined);
     const [user, setUser] = useState<User | undefined>(undefined);

@@ -1,6 +1,6 @@
 import { IonContent, IonFooter, IonToolbar } from '@ionic/react';
 import { useState } from 'react';
-import { User } from '@baselhack2021/interfaces/models';
+import { FestivalUser, User, Response } from '@baselhack2021/interfaces/models';
 import { BASE_URL } from '../constants';
 import { calculateAge } from '../utils';
 import './PersonVerification.css';
@@ -8,24 +8,41 @@ import StepperProps from '../stepper-props';
 
 interface Props extends StepperProps {
     user: User;
+    setFesetivalUserId: (festivalUserId: string | undefined) => void;
 }
 
-const PersonVerification: React.FC<Props> = ({ user, finishStep, back }) => {
+const PersonVerification: React.FC<Props> = ({ setFesetivalUserId, user, finishStep, back }) => {
     const [esc, setEsc] = useState(0);
 
     const incEsc = () => {
         setEsc(esc + 1);
     };
 
-    const verifyUser = () => {
+    const verifyUser = async () => {
         const json = JSON.stringify({ ...user, status: true });
-        fetch(`${BASE_URL}/users/${user._id}`, {
+        await fetch(`${BASE_URL}/users/${user._id}`, {
             method: 'PUT',
             body: json,
             headers: {
                 'Content-Type': 'application/json',
             },
-        }).then((_) => finishStep());
+        });
+
+        const body = {
+            userId: user._id,
+            festivalId: '613cff016259682dfb92a30f',
+        };
+
+        const response = await fetch(`${BASE_URL}/festival-users`, {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const festivalUser: Response<FestivalUser> = await response.json();
+        setFesetivalUserId(festivalUser.data?._id);
+        finishStep();
     };
 
     const parseBirthdate = (birthdate: Date): string => {

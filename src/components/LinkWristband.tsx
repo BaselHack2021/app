@@ -1,22 +1,23 @@
 import { IonContent, IonFooter, IonToolbar, useIonToast } from '@ionic/react';
 import { useState } from 'react';
-import { User, Response } from '@baselhack2021/interfaces/models';
 import { BASE_URL, TOAST_DURATION } from '../constants';
 import './LinkWristband.css';
 import StepperProps from '../stepper-props';
 import { scanQrCode } from '../utils';
 
 interface Props extends StepperProps {
-    user: User;
+    festivalUserId: string;
 }
 
-const LinkWristband: React.FC<Props> = ({ user, finishStep, back }) => {
+const LinkWristband: React.FC<Props> = ({ festivalUserId, finishStep, back }) => {
     const [wristbandUuid, setWristbandUuid] = useState<string | undefined>(undefined);
     const [present] = useIonToast();
 
     const openBarcodeScanner = async () => {
-        const uuid = await scanQrCode();
-        if (uuid) {
+        const uuidLink = await scanQrCode();
+        if (uuidLink) {
+            const splitResult = uuidLink.split('/');
+            const uuid = splitResult[splitResult.length - 1];
             setWristbandUuid(uuid);
         } else {
             present('Invalid QR code', TOAST_DURATION);
@@ -24,11 +25,22 @@ const LinkWristband: React.FC<Props> = ({ user, finishStep, back }) => {
     };
 
     const linkWristband = () => {
-        fetch(`${BASE_URL}/links`)
+        const body = {
+            festivalUserId,
+            qrCode: wristbandUuid,
+        };
+
+        fetch(`${BASE_URL}/qr-codes/link`, {
+            method: 'PUT',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
             .then((res) => res.json())
-            .then((res: Response<User>) => {
-                finishStep();
+            .then(() => {
                 present('Wristband linked', TOAST_DURATION);
+                finishStep();
             })
             .catch((_) => present('Link to wristband failed', TOAST_DURATION));
     };
