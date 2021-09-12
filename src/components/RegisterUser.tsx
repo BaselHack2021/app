@@ -1,5 +1,5 @@
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { IonButton, IonContent, useIonToast } from '@ionic/react';
+import { IonContent, useIonToast } from '@ionic/react';
 import { BASE_URL } from '../constants';
 import { User, Response } from '@baselhack2021/interfaces/models';
 import './RegisterUser.css';
