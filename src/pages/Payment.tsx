@@ -1,9 +1,8 @@
 import { IonContent, IonHeader, IonModal, IonPage, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
 import { useState } from 'react';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import AmountInput from '../components/AmountInput';
-import { calculateAge, padAmount } from '../utils';
-import { BASE_URL } from '../constants';
+import { calculateAge, padAmount, scanQrCode } from '../utils';
+import { BASE_URL, TOAST_DURATION } from '../constants';
 import { User, Response } from '@baselhack2021/interfaces/models';
 import './Payment.css';
 
@@ -15,10 +14,13 @@ const Tab1: React.FC = () => {
     const [present] = useIonToast();
 
     const openBarcodeScanner = async () => {
-        // const data = await BarcodeScanner.scan();
-        const uuid = '613d01aa6259682dfb92a313';
-        setUserUuid(uuid);
-        loadUserAge(uuid);
+        const uuid = await scanQrCode();
+        if (uuid) {
+            setUserUuid(uuid);
+            loadUserAge(uuid);
+        } else {
+            present('Invalid QR code', TOAST_DURATION);
+        }
     };
 
     const chargeUser = () => {
@@ -32,7 +34,7 @@ const Tab1: React.FC = () => {
                 const user = res.data;
                 setUserAge(calculateAge(new Date(user.birthdate)));
             })
-            .catch((_) => present('Could not calculate age', 3000));
+            .catch((_) => present('Could not calculate age', TOAST_DURATION));
     };
 
     const getAgeClass = (age: number | undefined): string => {

@@ -1,10 +1,10 @@
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { IonContent, IonFooter, IonToolbar, useIonToast } from '@ionic/react';
 import { useState } from 'react';
 import { User, Response } from '@baselhack2021/interfaces/models';
-import { BASE_URL } from '../constants';
+import { BASE_URL, TOAST_DURATION } from '../constants';
 import './LinkWristband.css';
 import StepperProps from '../stepper-props';
+import { scanQrCode } from '../utils';
 
 interface Props extends StepperProps {
     user: User;
@@ -15,8 +15,12 @@ const LinkWristband: React.FC<Props> = ({ user, finishStep, back }) => {
     const [present] = useIonToast();
 
     const openBarcodeScanner = async () => {
-        const data = await BarcodeScanner.scan();
-        setWristbandUuid(data.text);
+        const uuid = await scanQrCode();
+        if (uuid) {
+            setWristbandUuid(uuid);
+        } else {
+            present('Invalid QR code', TOAST_DURATION);
+        }
     };
 
     const linkWristband = () => {
@@ -24,9 +28,9 @@ const LinkWristband: React.FC<Props> = ({ user, finishStep, back }) => {
             .then((res) => res.json())
             .then((res: Response<User>) => {
                 finishStep();
-                present('Wristband linked', 3000);
+                present('Wristband linked', TOAST_DURATION);
             })
-            .catch((_) => present('Link to wristband failed', 3000));
+            .catch((_) => present('Link to wristband failed', TOAST_DURATION));
     };
 
     return (
