@@ -10,6 +10,7 @@ const Tab1: React.FC = () => {
     const [userUuid, setUserUuid] = useState<string | undefined>(undefined);
     const [amount, setAmount] = useState<number | undefined>(undefined);
     const [userAge, setUserAge] = useState<number | undefined>(undefined);
+    const [user, setUser] = useState<User | undefined>(undefined);
 
     const [present] = useIonToast();
 
@@ -28,11 +29,13 @@ const Tab1: React.FC = () => {
     };
 
     const loadUserAge = (uuid: string) => {
-        fetch(`${BASE_URL}/users/${uuid}`)
+        fetch(`${BASE_URL}/festival-users/${uuid}`)
             .then((res) => res.json())
             .then((res: Response<User>) => {
-                const user = res.data;
-                setUserAge(calculateAge(new Date(user.birthdate)));
+                if (res.data) {
+                    setUser(res.data);
+                    setUserAge(calculateAge(new Date(res.data.birthdate)));
+                }
             })
             .catch((_) => present('Could not calculate age', TOAST_DURATION));
     };

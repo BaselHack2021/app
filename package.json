@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
-        "@baselhack2021/interfaces": "github:BaselHack2021/interfaces",
+        "@baselhack2021/interfaces": "^1.0.9",
         "@capacitor/app": "1.0.3",
         "@capacitor/core": "3.2.2",
         "@capacitor/haptics": "1.0.3",

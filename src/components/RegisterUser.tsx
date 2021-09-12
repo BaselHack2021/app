@@ -18,8 +18,10 @@ export const RegisterUser: React.FC<Props> = ({ setUser, finishStep }) => {
             fetch(`${BASE_URL}/users/${uuid}`)
                 .then((res) => res.json())
                 .then((res: Response<User>) => {
-                    setUser({ ...res.data, birthdate: new Date(res.data.birthdate) });
-                    finishStep();
+                    if (res.data) {
+                        setUser({ ...res.data, birthdate: new Date(res.data.birthdate) });
+                        finishStep();
+                    }
                 })
                 .catch((_) => present('Could not get user', TOAST_DURATION));
         } else {
