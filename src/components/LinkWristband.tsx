@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { User } from '../../interfaces/models';
+import { User } from '@baselhack2021/interfaces/models';
 import './LinkWristband.css';
 
 interface Props {

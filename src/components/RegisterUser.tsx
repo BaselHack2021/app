@@ -1,7 +1,7 @@
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { IonButton, useIonToast } from '@ionic/react';
 import { BASE_URL } from '../constants';
-import { User, Response } from '../../interfaces/models';
+import { User, Response } from '@baselhack2021/interfaces/models';
 import './RegisterUser.css';
 
 export const RegisterUser: React.FC<{ setUser: (user: User) => void }> = ({ setUser }) => {

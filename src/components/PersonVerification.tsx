@@ -1,6 +1,6 @@
 import { IonButton } from '@ionic/react';
 import { useState } from 'react';
-import { User } from '../../interfaces/models';
+import { User } from '@baselhack2021/interfaces/models';
 import { BASE_URL } from '../constants';
 import { calculateAge } from '../utils';
 import './PersonVerification.css';
