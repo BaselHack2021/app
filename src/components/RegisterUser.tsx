@@ -26,7 +26,7 @@ export const RegisterUser: React.FC<Props> = ({ setUser, finishStep }) => {
     return (
         <>
             <IonContent>
-                <div className="mx-auto container px-10">
+                <div className="flex items-center justify-center h-full">
                     <button onClick={openBarcodeScanner} className="button-primary">
                         Scan registered user
                     </button>

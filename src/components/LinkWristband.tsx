@@ -33,7 +33,7 @@ const LinkWristband: React.FC<Props> = ({ user, finishStep, back }) => {
         <>
             <IonContent>
                 {!wristbandUuid && (
-                    <div className="mx-auto container px-10">
+                    <div className="flex items-center justify-center h-full">
                         <button onClick={openBarcodeScanner} className="button-primary">
                             Scan wristband
                         </button>
