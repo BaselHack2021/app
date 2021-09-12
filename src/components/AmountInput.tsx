@@ -20,7 +20,7 @@ const AmountInput: React.FC<Props> = ({ amountChanged }) => {
 
     useEffect(() => {
         amountChanged(parseFloat(amount));
-    }, [amount]);
+    }, [amount, amountChanged]);
 
     return (
         <div className="app-container">

@@ -1,6 +1,5 @@
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { useIonToast } from '@ionic/react';
-import { TOAST_DURATION, UUID_LENGTH } from './constants';
+import { UUID_LENGTH } from './constants';
 
 export const calculateAge = (birthdate: Date): number => {
     var ageDifMs = Date.now() - birthdate.getTime();
