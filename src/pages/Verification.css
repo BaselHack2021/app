@@ -7,5 +7,5 @@
 }
 
 .verification--stepper-description {
-    @apply pt-1 text-xs;
+    @apply pt-1 text-xs flex items-center justify-center w-full;
 }

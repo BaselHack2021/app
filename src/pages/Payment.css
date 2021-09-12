@@ -1,0 +1,19 @@
+.payment--number-input {
+    @apply p-4 flex justify-center items-center;
+}
+
+.payment--age-bg-green {
+    @apply bg-green-400;
+}
+
+.payment--age-bg-yellow {
+    @apply bg-yellow-400;
+}
+
+.payment--age-bg-red {
+    @apply bg-red-400;
+}
+
+.payment--age-check {
+    @apply h-1/3 w-full mb-5 flex justify-center items-center;
+}
